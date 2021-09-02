@@ -216,7 +216,7 @@ if ($false -eq $components.networkSecurityGroupExists) {
         $uagAdminRule = New-AzNetworkSecurityRuleConfig -Name uag-admin-rule -Description "UAG Admin" -Access Allow -Protocol Tcp -Direction Inbound `
             -Priority 105 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 9443
 	    
-	$rdpRule = = New-AzNetworkSecurityRuleConfig -Name rdp-admin-rule -Description "RDP Access" -Access Allow -Protocol Tcp -Direction Inbound `
+	$rdpRule = New-AzNetworkSecurityRuleConfig -Name rdp-rule -Description "RDP Access" -Access Allow -Protocol Tcp -Direction Inbound `
             -Priority 106 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 3389
 
         New-AzNetworkSecurityGroup -ResourceGroupName $settings.resourceGroupName -Location $settings.location `
