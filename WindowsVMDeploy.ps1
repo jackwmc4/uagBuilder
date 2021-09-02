@@ -204,8 +204,7 @@ if ($false -eq $components.networkSecurityGroupExists) {
     $udpRule = New-AzNetworkSecurityRuleConfig -Name udp-rule -Description "Allow UDP 443" -Access Allow -Protocol Udp -Direction Inbound `
             -Priority 101 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 443
  
-
-        $httpRule = New-AzNetworkSecurityRuleConfig -Name http-rule -Description "Allow HTTP" -Access Allow -Protocol Tcp -Direction Inbound `
+	$httpRule = New-AzNetworkSecurityRuleConfig -Name http-rule -Description "Allow HTTP" -Access Allow -Protocol Tcp -Direction Inbound `
             -Priority 102 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 80
 
         $blastHttpRule = New-AzNetworkSecurityRuleConfig -Name http-blast-rule -Description "Allow Blast" -Access Allow -Protocol Tcp -Direction Inbound `
@@ -216,9 +215,12 @@ if ($false -eq $components.networkSecurityGroupExists) {
 
         $uagAdminRule = New-AzNetworkSecurityRuleConfig -Name uag-admin-rule -Description "UAG Admin" -Access Allow -Protocol Tcp -Direction Inbound `
             -Priority 105 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 9443
+	    
+	$rdpRule = = New-AzNetworkSecurityRuleConfig -Name rdp-admin-rule -Description "RDP Access" -Access Allow -Protocol Tcp -Direction Inbound `
+            -Priority 106 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 3389
 
         New-AzNetworkSecurityGroup -ResourceGroupName $settings.resourceGroupName -Location $settings.location `
-            -Name $settings.networkSecurityGroupName -SecurityRules $httpsRule, $httpRule, $udpRule, $blastHttpRule, $blastUDPRule, $uagAdminRule
+            -Name $settings.networkSecurityGroupName -SecurityRules $httpsRule, $httpRule, $udpRule, $blastHttpRule, $blastUDPRule, $uagAdminRule, $rdpRule
 }
 
 if ($false -eq $components.virtualSubnetExists) {
